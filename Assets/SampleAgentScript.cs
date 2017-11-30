@@ -64,13 +64,20 @@ public class SampleAgentScript : MonoBehaviour
             case e_States.UNAWARE:
                 RaycastHit hit;
 
-                if(Physics.Raycast(transform.position, (m_target.position - transform.position), out hit) && hit.transform.tag == "Player")
+                if (Physics.Raycast(transform.position, (m_target.position - transform.position), out hit))
                 {
-                    if(hit.distance <= 5f)
+                    if (hit.transform.tag == "Player")
                     {
-                        m_state = e_States.ENGAGE;
+                        if (hit.distance <= 5f)
+                        {
+                            m_state = e_States.ENGAGE;
+                        }
+                        else if (hit.distance <= 10f)
+                        {
+                            m_state = e_States.INVESTIGATE;
+                        }
                     }
-                    else if(hit.distance <= 10f)
+                    else if((m_target.position - transform.position).magnitude < 5f)
                     {
                         m_state = e_States.INVESTIGATE;
                     }
@@ -112,12 +119,9 @@ public class SampleAgentScript : MonoBehaviour
 
                     // 1 for slow rotation, 3 for faster
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1 * Time.deltaTime);
-                }
 
-                // Direct LOS
-                if (Physics.Raycast(ray, out hit) && hit.transform.tag == "Player")
-                {
-                    if (hit.distance <= 5f)
+                    // Direct LOS
+                    if (hit.distance <= 5f && hit.transform.tag == "Player")
                     {
                         m_state = e_States.ENGAGE;
                     }
