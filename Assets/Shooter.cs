@@ -21,7 +21,7 @@ public class Shooter : MonoBehaviour {
             // Instantiate(bullet, transform.position, Quaternion.identity);
             Instantiate(bullet, transform.position, transform.rotation);
 
-            FirstPersonController fpc = GetComponent<FirstPersonController>();
+            // FirstPersonController fpc = GetComponent<FirstPersonController>();
 
             // fpc.m_MoveDir.z -= 15;
 
