@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour {
 
         Vector3 V = new Vector3(0f, 0f, 1f);
 
-        tmpRigid.AddForce(Camera.main.transform.TransformDirection(V)*6000);
+        tmpRigid.AddForce(Camera.main.transform.TransformDirection(V)*1000);
         // tmpRigid.velocity = Camera.main.transform.TransformDirection(V) * 300;
 
         // tmpRigid.AddForce(transform.forward * speed * 600);
@@ -52,6 +52,8 @@ public class Bullet : MonoBehaviour {
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }*/
+
+        Destroy(gameObject);
     }
 
     // Update is called once per frame

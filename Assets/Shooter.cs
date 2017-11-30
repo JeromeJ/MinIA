@@ -6,20 +6,27 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class Shooter : MonoBehaviour {
 
     [SerializeField]
-    GameObject bullet; // Use a prefab so it doesn't have to be in the scene
+    public GameObject m_bullet; // Use a prefab so it doesn't have to be in the scene
+    public float m_cooldown = .5f;
+
+    private float m_lastShot;
 
     // Use this for initialization
-    void Start () {
-
+    private void Start ()
+    {
+        m_lastShot = Time.time;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void FixedUpdate ()
+    {
         // if (Input.GetButtonDown(("Fire1")))
-        if (Input.GetButton(("Fire1")))
+        if (Input.GetButton("Fire1") && Time.time - m_lastShot > m_cooldown)
         {
+            m_lastShot = Time.time;
+
             // Instantiate(bullet, transform.position, Quaternion.identity);
-            Instantiate(bullet, transform.position, transform.rotation);
+            Instantiate(m_bullet, transform.position, transform.rotation);
 
             // FirstPersonController fpc = GetComponent<FirstPersonController>();
 
