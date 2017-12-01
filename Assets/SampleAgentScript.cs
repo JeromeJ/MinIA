@@ -8,6 +8,7 @@ public class SampleAgentScript : MonoBehaviour
     #region Public Members
 
     public Transform m_target;
+    public bool m_debug;
 
     #endregion
 
@@ -29,9 +30,24 @@ public class SampleAgentScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        DebugMeshPath();
 
-        var nav = GetComponent<NavMeshAgent>();
-        if (nav == null || nav.path == null)
+        GameObject wall = GameObject.Find("Wall");
+
+        Debug.DrawRay(wall.transform.GetComponent<Renderer>().bounds.center, Vector3.forward * 5, Color.blue);
+    }
+
+
+    #endregion
+
+    #region Class Methods
+
+    private void DebugMeshPath()
+    {
+        if (!m_debug)
+            return;
+
+        if (m_agent == null || m_agent.path == null)
             return;
 
         var line = this.GetComponent<LineRenderer>();
@@ -43,7 +59,7 @@ public class SampleAgentScript : MonoBehaviour
             line.SetColors(Color.yellow, Color.yellow);
         }
 
-        var path = nav.path;
+        var path = m_agent.path;
         line.SetVertexCount(path.corners.Length);
 
         for (int i = 0; i < path.corners.Length; i++)
@@ -52,12 +68,7 @@ public class SampleAgentScript : MonoBehaviour
         }
     }
 
-
-    #endregion
-
-    #region Class Methods
-
-    void StateMachine()
+    private void StateMachine()
     {
         switch(m_state)
         {
