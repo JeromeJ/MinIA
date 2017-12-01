@@ -77,6 +77,7 @@ public class SampleAgentScript : MonoBehaviour
                             m_state = e_States.INVESTIGATE;
                         }
                     }
+                    // Vector3.Distance?
                     else if((m_target.position - transform.position).magnitude < 5f)
                     {
                         m_state = e_States.INVESTIGATE;
@@ -98,7 +99,7 @@ public class SampleAgentScript : MonoBehaviour
                 Ray ray = new Ray(transform.position, (m_target.position - transform.position));
 
                 // Link between both
-                Debug.DrawRay(transform.position, (m_target.position - transform.position), Color.yellow);
+                Debug.DrawRay(transform.position, (m_target.position - transform.position), Color.yellow, .1f);
 
                 // Debug.DrawRay(m_target.position, new Vector3(2,2,2), Color.black);
                 // Debug.Log(Vector3.ProjectOnPlane(m_target.position, zombiePlane.normal));
@@ -125,7 +126,7 @@ public class SampleAgentScript : MonoBehaviour
                     {
                         m_state = e_States.ENGAGE;
                     }
-                    else if (hit.distance > 10f)
+                    else if ((m_target.position - transform.position).magnitude > 10f)
                     {
                         m_state = e_States.UNAWARE;
                     }
